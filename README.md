@@ -1,5 +1,10 @@
 # P01_ADBD
-Conceptos fundamentales de PostgreSQL
+Conceptos fundamentales de PostgreSQL.
+
+Realizado por:
+- Alejandro David Castro afonso ( alu0101327907@ull.edu.es )
+- Ismael Acosta Febles ( alu0101323589@ull.edu.es )
+
 
 ## 1. Creación de la base de datos "biblioteca"
 ##### Comando
@@ -156,6 +161,94 @@ Insertar al menos 5 autores, 8 libros y 5 préstamos de ejemplo.
   ```
 - 5 préstamos:
   ```sql
-  
+  INSERT INTO prestamos (id_libro, fecha_prestamo, fecha_devolucion, usuario_prestatario) VALUES
+           (1, '2026-01-01', '2026-09-20' , 'Alejandro'),
+           (2, '2026-02-02', NULL, 'Ismael'),
+           (4, '2026-03-03', NULL, 'Pepe'),
+           (5, '2026-04-04', '2026-05-05', 'Luis'),
+           (8, '2026-06-06', NULL, 'Eva');
   ```
-  
+  Comprobación: 
+  ```text
+   select * from prestamos;
+   id_prestamo | id_libro | fecha_prestamo | fecha_devolucion | usuario_prestatario 
+  -------------+----------+----------------+------------------+---------------------
+             1 |        1 | 2026-01-01     | 2026-09-20       | Alejandro
+             2 |        2 | 2026-02-02     |                  | Ismael
+             3 |        4 | 2026-03-03     |                  | Pepe
+             4 |        5 | 2026-04-04     | 2026-05-05       | Luis
+             5 |        8 | 2026-06-06     |                  | Eva
+  (5 rows)
+  ```
+## 5. Consultas básicas
+a. Listar todos los libros con su autor correspondiente.
+```sql
+SELECT libros.id_libro, libros.titulo, autores.nombre 
+FROM libros
+JOIN autores ON libros.id_autor = autores.id_autor;
+```
+Consulta:
+
+b. Mostrar los préstamos que aún no tienen fecha de devolución.
+```sql
+select *
+from prestamos
+where fecha_devolucion is null;
+```
+Consulta:
+
+c. Obtener los autores que tienen más de un libro registrado.
+```sql
+select autores.nombre, COUNT(*)
+from autores
+join libros on autores.id_autor = libros.id_autor 
+group by autores.nombre 
+having count(*) > 1;
+```
+Consulta:
+
+## 6. Consultas con agregación
+a. Calcular el número total de préstamos realizados.
+```sql
+select count(*) as num_prestamos
+from prestamos;
+```
+Consulta:
+
+b. Obtener el número de libros prestados por cada usuario.
+```sql
+select usuario_prestatario, count(*)
+from prestamos
+group by usuario_prestatario;
+```
+Consulta:
+
+## 7. Modificación de datos
+a. Actualizar la fecha de devolución de un préstamo pendiente.
+```sql
+select *
+from prestamos 
+where id_prestamo = 3;
+
+update prestamos
+set fecha_devolucion  = '2026-09-09'
+where id_prestamo = 3;
+
+select *
+from prestamos
+where id_prestamo = 3;
+```
+Consulta:
+
+b. Eliminar un libro y comprobar el efecto en la tabla de préstamos.
+```sql
+select *
+from prestamos
+
+delete from libros 
+where id_libro = 8;
+
+select *
+from prestamos
+```
+Consulta:
