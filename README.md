@@ -1,5 +1,4 @@
-# P01_ADBD
-Conceptos fundamentales de PostgreSQL.
+# P01_ADBD_Conceptos fundamentales de PostgreSQL.
 
 Realizado por:
 - Alejandro David Castro afonso ( alu0101327907@ull.edu.es )
@@ -189,6 +188,8 @@ JOIN autores ON libros.id_autor = autores.id_autor;
 ```
 Consulta:
 
+![5a](img/5a.PNG)
+
 b. Mostrar los préstamos que aún no tienen fecha de devolución.
 ```sql
 select *
@@ -196,6 +197,8 @@ from prestamos
 where fecha_devolucion is null;
 ```
 Consulta:
+
+![5b](img/5b.PNG)
 
 c. Obtener los autores que tienen más de un libro registrado.
 ```sql
@@ -207,6 +210,8 @@ having count(*) > 1;
 ```
 Consulta:
 
+![5c](img/5c.PNG)
+
 ## 6. Consultas con agregación
 a. Calcular el número total de préstamos realizados.
 ```sql
@@ -215,6 +220,8 @@ from prestamos;
 ```
 Consulta:
 
+![6a](img/6a.PNG)
+
 b. Obtener el número de libros prestados por cada usuario.
 ```sql
 select usuario_prestatario, count(*)
@@ -222,6 +229,8 @@ from prestamos
 group by usuario_prestatario;
 ```
 Consulta:
+
+![6b](img/6b.PNG)
 
 ## 7. Modificación de datos
 a. Actualizar la fecha de devolución de un préstamo pendiente.
@@ -240,6 +249,9 @@ where id_prestamo = 3;
 ```
 Consulta:
 
+![7a1](img/7a1.PNG)
+![7a2](img/7a2.PNG)
+
 b. Eliminar un libro y comprobar el efecto en la tabla de préstamos.
 ```sql
 select *
@@ -252,3 +264,8 @@ select *
 from prestamos
 ```
 Consulta:
+
+![7b1](img/7b1.PNG)
+![7b2](img/7b2.PNG)
+
+## 8. Creación de vistas
