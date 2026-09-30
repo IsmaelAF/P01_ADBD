@@ -366,6 +366,9 @@ Desde la terminal de psql
 
 <img width="937" height="100" alt="image" src="https://github.com/user-attachments/assets/284cf757-c561-4941-84c1-be0758d4c198" />
 
+<img width="439" height="203" alt="image" src="https://github.com/user-attachments/assets/6e946ed9-6e3b-4293-9ae6-dc8c0f871eb2" />
+
+
 ### 10.2 Importar datos adicionales de autores desde un archivo CSV externo.
 
 ```bash
