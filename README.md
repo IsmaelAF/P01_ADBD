@@ -21,6 +21,7 @@ a. Crear dos usuario:
 ```sql
 CREATE USER admin_biblio WITH PASSWORD 'admin1234';
 GRANT ALL PRIVILEGES ON DATABASE biblioteca TO admin_biblio;
+ALTER DATABASE biblioteca OWNER TO admin_biblio;
 ```
 - usuario_biblio.
 ```sql
