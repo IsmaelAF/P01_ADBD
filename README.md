@@ -270,3 +270,41 @@ Consulta:
 ![7b2](img/7b2.PNG)
 
 ## 8. Creación de vistas
+
+### 8.1 Crear la vista vista_libros_prestados
+```sql
+CREATE OR REPLACE VIEW vista_libros_prestados as
+SELECT
+    l.titulo AS libro,
+    a.nombre AS autor,
+    p.usuario_prestatario AS prestatario
+FROM prestamos p
+JOIN libros l
+    ON p.id_libro = l.id_libro
+JOIN autores a
+    ON l.id_autor = a.id_autor;
+```
+
+Uso
+
+```sql
+SELECT * FROM vista_libros_prestados;
+```
+
+<img width="313" height="125" alt="image" src="https://github.com/user-attachments/assets/37b3d40e-ed69-46d1-9e29-2e656e9abdbb" />
+
+### 8.2 Dar permisos únicamente a usuario_biblio
+Primero quitamos los permisos de la vista al público:
+```sql
+REVOKE ALL ON vista_libros_prestados FROM PUBLIC;
+```
+Después damos permiso de consulta únicamente al usuario:
+```sql
+GRANT SELECT ON vista_libros_prestados TO usuario_biblio;
+```
+De esta forma, usuario_biblio podrá ejecutar:
+```sql
+SELECT * FROM vista_libros_prestados;
+```
+pero no podrá modificar los datos mediante la vista.
+
