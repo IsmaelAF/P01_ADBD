@@ -308,3 +308,50 @@ SELECT * FROM vista_libros_prestados;
 ```
 pero no podrá modificar los datos mediante la vista.
 
+## 9. FUNCIONES Y CONSULTAS AVANZADAS
+### 9.1 Crear una función que reciba como parámetro el nombre de un autor y devuelva todos los libros escritos por dicho autor.
+```sql
+CREATE OR REPLACE FUNCTION obtener_libros_autor(nombre_autor VARCHAR)
+RETURNS TABLE (
+    id_libro INT,
+    titulo VARCHAR,
+    año_publicacion INT
+)
+LANGUAGE SQL
+AS $$
+    SELECT
+        l.id_libro,
+        l.titulo,
+        l.ano_publicacion
+    FROM libros l
+    INNER JOIN autores a
+        ON l.id_autor = a.id_autor
+    WHERE a.nombre = $1;
+$$;
+```
+
+Uso
+```sql
+SELECT *
+FROM obtener_libros_autor('Gabriel García Márquez');
+```
+<img width="314" height="73" alt="image" src="https://github.com/user-attachments/assets/1ff0259e-9025-4fb7-bc8b-b495bf4bf3c2" />
+
+### 9.2 Crear una consulta que devuelva los tres libros que más veces han sido prestados.
+```sql
+SELECT
+    l.id_libro,
+    l.titulo,
+    COUNT(p.id_prestamo) AS numero_prestamos
+FROM libros l
+INNER JOIN prestamos p
+    ON l.id_libro = p.id_libro
+GROUP BY
+    l.id_libro,
+    l.titulo
+ORDER BY numero_prestamos DESC
+LIMIT 3;
+```
+
+<img width="311" height="108" alt="image" src="https://github.com/user-attachments/assets/0d83f2e7-ae2f-488e-9168-dc625b51b874" />
+
