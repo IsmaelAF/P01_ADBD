@@ -355,3 +355,29 @@ LIMIT 3;
 
 <img width="311" height="108" alt="image" src="https://github.com/user-attachments/assets/0d83f2e7-ae2f-488e-9168-dc625b51b874" />
 
+
+## 10. EXPORTACIÓN E IMPORTACIÓN DE DATOS
+### 10.1 Exportar el contenido de la tabla libros a un archivo en formato CSV.
+
+Desde la terminal de psql
+```bash
+\copy libros TO '/home/usuario/pr01/libros.csv' WITH (FORMAT CSV, HEADER, DELIMITER ',');
+```
+
+<img width="937" height="100" alt="image" src="https://github.com/user-attachments/assets/284cf757-c561-4941-84c1-be0758d4c198" />
+
+### 10.2 Importar datos adicionales de autores desde un archivo CSV externo.
+
+```bash
+\copy autores FROM '/home/usuario/pr01/autores_nuevos.csv' WITH (FORMAT CSV, HEADER, DELIMITER ',');
+```
+
+<img width="1042" height="213" alt="image" src="https://github.com/user-attachments/assets/1af1bde8-b2d6-4dfc-88fa-fc9ee86285d6" />
+
+Comprobamos si se exportó bien
+```sql
+SELECT *
+FROM autores;
+```
+
+<img width="314" height="245" alt="image" src="https://github.com/user-attachments/assets/13b9811b-270a-4e4a-a780-08da96da418e" />
